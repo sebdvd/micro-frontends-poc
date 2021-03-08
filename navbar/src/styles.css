@@ -1,0 +1,30 @@
+.Navbar {
+  display: flex;
+  align-items: center;
+  padding: 0 2rem;
+  color: #fafafa;
+  background-color: #212121;
+}
+
+.NavbarLink {
+  display: inline-block;
+  text-decoration: none;
+  white-space: nowrap;
+  color: #fafafa;
+  background-color: #212121;
+  font-size: 1.5rem;
+  padding: 0.5rem 1rem;
+  border-bottom: 5px solid transparent;
+}
+
+.NavbarLink.NavbarLink:hover {
+  background-color: #424242;
+  color: #80deea;
+  border-color: #80deea;
+}
+
+.NavbarLink.NavbarLink--selected {
+  background-color: #424242;
+  color: #26c6da;
+  border-color: #26c6da;
+}

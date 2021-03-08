@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Alkemics MFE</title>
+  <meta name="importmap-type" content="systemjs-importmap" />
+  <script type="systemjs-importmap">
+    {
+      "imports": {
+        "react": "https://cdn.jsdelivr.net/npm/react@<%= versions.react %>/umd/react.production.min.js",
+        "react-dom": "https://cdn.jsdelivr.net/npm/react-dom@<%= versions['react-dom'] %>/umd/react-dom.production.min.js",
+        "react-router": "https://cdn.jsdelivr.net/npm/react-router@<%= versions['react-router'] %>/umd/react-router.min.js",
+        "react-router-dom": "https://cdn.jsdelivr.net/npm/react-router-dom@<%= versions['react-router-dom'] %>/umd/react-router-dom.min.js",
+        "@alkem/front-root": "//poc.alkemics.com/alkem-front-root.js",
+        "@alkem/front-navbar": "//poc.alkemics.com/alkem-front-navbar.js",
+        "@alkem/front-product-catalog": "//poc.alkemics.com/alkem-front-product-catalog.js"
+      }
+    }
+  </script>
+  <% if (isLocal) { %>
+  <script type="systemjs-importmap">
+    {
+      "imports": {
+        "@alkem/front-root": "//localhost:<%= port %>/alkem-front-root.js",
+        "@alkem/front-navbar": "//localhost:9001/alkem-front-navbar.js",
+        "@alkem/front-product-catalog": "//localhost:9002/alkem-front-product-catalog.js"
+      }
+    }
+  </script>
+  <% } %>
+  <script src="https://cdn.jsdelivr.net/npm/import-map-overrides@<%= versions['import-map-overrides'] %>/dist/import-map-overrides.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/systemjs@<%= versions.systemjs %>/dist/system.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/systemjs@<%= versions.systemjs %>/dist/extras/amd.min.js"></script>
+</head>
+<body>
+  <div id="root"></div>
+  <script>
+    System.import('@alkem/front-root');
+  </script>
+  <import-map-overrides-full show-when-local-storage="devtools" dev-libs></import-map-overrides-full>
+</body>
+</html>

@@ -1,0 +1,54 @@
+{
+  "name": "@alkem/front-project-config",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "files": [
+    "index.js",
+    "babel.config.js",
+    "eslint.config.js",
+    "prettier.config.js",
+    "react-utils.js"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@alkem/babel-config": "~2.0.4",
+    "@alkem/eslint-config-alkemics": "~14.2.7",
+    "babel-loader": "~8.2.2",
+    "css-loader": "~5.1.1",
+    "cssnano": "~4.1.10",
+    "html-webpack-plugin": "~5.2.0",
+    "import-map-overrides": "~2.3.0",
+    "postcss": "~8.2.7",
+    "postcss-loader": "~5.1.0",
+    "postcss-preset-env": "~6.7.0",
+    "prettier": "~2.2.1",
+    "react": "~17.0.1",
+    "react-dom": "~17.0.1",
+    "react-error-boundary": "~3.1.1",
+    "react-router": "~5.2.0",
+    "react-router-dom": "~5.2.0",
+    "style-loader": "~2.0.0",
+    "systemjs": "~6.8.3",
+    "systemjs-webpack-interop": "~2.3.6",
+    "webpack": "~5.24.3",
+    "webpack-cli": "~4.5.0",
+    "webpack-dev-server": "~4.0.0-beta.0",
+    "webpack-merge": "~5.7.3"
+  },
+  "browserslist": {
+    "production": [
+      "IE 11",
+      "Safari >= 9",
+      "Chrome >= 35",
+      "Firefox >= 30",
+      "Edge >= 16"
+    ],
+    "development": [
+      "last 2 chrome version",
+      "last 2 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}

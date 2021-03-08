@@ -1,0 +1,15 @@
+{
+  "scripts": {
+    "start": "node server.js",
+    "postinstall": "mkdir -p public"
+  },
+  "devDependencies": {
+    "@alkem/babel-config": "~2.0.4",
+    "@alkem/eslint-config-alkemics": "~14.2.7",
+    "@alkem/front-project-config": "file:../project-config",
+    "connect-history-api-fallback": "~1.6.0",
+    "cors": "~2.8.5",
+    "live-server": "~1.2.1",
+    "prettier": "~2.2.1"
+  }
+}

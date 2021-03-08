@@ -1,0 +1,17 @@
+.ProductCatalog {
+  padding: 1rem 2rem;
+}
+
+.ProductCatalog__table {
+  width: 100%;
+}
+
+.ProductCatalog__table th,
+.ProductCatalog__table td {
+  text-align: left;
+  padding: 0.5rem 1rem;
+}
+
+.ProductCatalog__table th:first-child {
+  width: 1px;
+}

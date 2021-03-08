@@ -1,0 +1,9 @@
+.MfeComponentErrorFallback {
+  color: white;
+  background-color: red;
+  padding: 1rem;
+}
+
+.MfeComponentErrorFallback pre {
+  white-space: pre-wrap;
+}
