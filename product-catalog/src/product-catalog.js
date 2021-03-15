@@ -1,6 +1,9 @@
 import React from 'react';
-import { fetchProducts, receiveProducts } from './actions';
-import * as api from './api';
+import {
+  fetchNextProduct,
+  fetchPreviousProduct,
+  fetchProducts,
+} from './actions';
 import { useDispatch, useSelector } from './context';
 
 export function ProductCatalog() {
@@ -9,26 +12,21 @@ export function ProductCatalog() {
   const products = useSelector((state) => state.products);
 
   React.useEffect(() => {
-    let isMounted = true;
     dispatch(fetchProducts());
-    api
-      .fetchProducts()
-      .then((response) => {
-        if (isMounted) {
-          dispatch(receiveProducts(response));
-        }
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-    return () => {
-      isMounted = false;
-    };
   }, [dispatch]);
 
   return (
     <section className="ProductCatalog">
-      <h1>Products catalog</h1>
+      <div className="ProductCatalog__header">
+        <h1>Products catalog</h1>
+        <div>
+          <button onClick={() => dispatch(fetchPreviousProduct())}>
+            Previous
+          </button>
+          <button onClick={() => dispatch(fetchNextProduct())}>Next</button>
+        </div>
+        {isFetching ? <div>Loading...</div> : null}
+      </div>
       {products.length ? (
         <table className="ProductCatalog__table" border="1">
           <thead>
@@ -46,10 +44,8 @@ export function ProductCatalog() {
             ))}
           </tbody>
         </table>
-      ) : isFetching ? (
-        'Loading...'
       ) : (
-        'Empty.'
+        !isFetching && 'Empty.'
       )}
     </section>
   );
