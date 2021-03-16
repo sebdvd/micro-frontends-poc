@@ -7,7 +7,7 @@ import {
 } from './actions';
 import * as api from './api';
 
-export function* mainSaga() {
+export function* saga() {
   yield takeLatest(
     [FETCH_PRODUCTS, NEXT_PRODUCTS, PREVIOUS_PRODUCTS],
     fetchProductsSaga
