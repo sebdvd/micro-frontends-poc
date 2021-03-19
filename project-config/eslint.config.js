@@ -18,5 +18,10 @@ module.exports = {
         '@typescript-eslint/no-var-requires': 'off',
       },
     },
+    {
+      files: ['src/bootstrap.js'],
+      env: { node: false, browser: true },
+      globals: { System: 'readonly' },
+    },
   ],
 };

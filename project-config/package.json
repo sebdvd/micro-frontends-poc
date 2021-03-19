@@ -8,7 +8,8 @@
     "babel.config.js",
     "eslint.config.js",
     "prettier.config.js",
-    "react-utils.js"
+    "react-utils.js",
+    "deploy.js"
   ],
   "author": "",
   "license": "ISC",
@@ -16,6 +17,7 @@
     "@alkem/babel-config": "~2.0.4",
     "@alkem/eslint-config-alkemics": "~14.2.7",
     "babel-loader": "~8.2.2",
+    "copy-webpack-plugin": "~8.0.0",
     "css-loader": "~5.1.1",
     "cssnano": "~4.1.10",
     "html-webpack-plugin": "~5.2.0",

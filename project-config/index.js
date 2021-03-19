@@ -2,6 +2,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const SystemJSPublicPathPlugin = require('systemjs-webpack-interop/SystemJSPublicPathWebpackPlugin');
 const cssnano = require('cssnano');
+const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = ({ port, isRoot, rootDirectoryLevel }) => (
   env,
@@ -9,7 +10,8 @@ module.exports = ({ port, isRoot, rootDirectoryLevel }) => (
 ) => {
   const isProduction = mode === 'production';
   process.env.NODE_ENV = isProduction ? 'production' : 'development';
-  const moduleName = require(path.resolve(process.cwd(), 'package.json')).name;
+  const package = require(path.resolve(process.cwd(), 'package.json'));
+  const moduleName = package.name;
   const {
     groups: { orgName, projectName },
   } = /@(?<orgName>.+)\/(?<projectName>.+)/.exec(moduleName);
@@ -79,10 +81,34 @@ module.exports = ({ port, isRoot, rootDirectoryLevel }) => (
       historyApiFallback: true,
       headers: {
         'Access-Control-Allow-Origin': '*',
+        'Cache-Control': 'no-store',
       },
       firewall: false,
       client: {
         host: 'localhost',
+      },
+      proxy: {
+        '/': {
+          target: 'http://dev.alkemics.com/',
+          pathRewrite: {},
+          secure: false,
+          onProxyRes: (proxyRes) => {
+            const blacklist = [
+              'content-security-policy',
+              'feature-policy',
+              'referrer-policy',
+              'strict-transport-security',
+              'x-content-type-options',
+              'x-frame-options',
+              'x-xss-protection',
+            ];
+            for (const header of Object.keys(proxyRes.headers)) {
+              if (blacklist.includes(header.toLowerCase())) {
+                delete proxyRes.headers[header];
+              }
+            }
+          },
+        },
       },
     },
     externals: [
@@ -105,6 +131,7 @@ module.exports = ({ port, isRoot, rootDirectoryLevel }) => (
             isLocal: env.WEBPACK_SERVE,
             port: port,
             moduleName,
+            moduleVersion: package.version,
             versions: [
               'systemjs',
               'import-map-overrides',
@@ -112,6 +139,7 @@ module.exports = ({ port, isRoot, rootDirectoryLevel }) => (
               'react-dom',
               'react-router',
               'react-router-dom',
+              'regenerator-runtime',
             ].reduce(
               (acc, packageName) =>
                 Object.assign(acc, {
@@ -125,6 +153,15 @@ module.exports = ({ port, isRoot, rootDirectoryLevel }) => (
               {}
             ),
           },
+        }),
+      isRoot &&
+        new CopyPlugin({
+          patterns: [
+            {
+              from: path.resolve(process.cwd(), 'src/bootstrap.js'),
+              to: path.resolve(process.cwd(), 'dist/bootstrap.js'),
+            },
+          ],
         }),
     ].filter(Boolean),
     resolve: {

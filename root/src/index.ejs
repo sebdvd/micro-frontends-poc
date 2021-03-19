@@ -13,9 +13,9 @@
         "react-dom": "https://cdn.jsdelivr.net/npm/react-dom@<%= versions['react-dom'] %>/umd/react-dom.production.min.js",
         "react-router": "https://cdn.jsdelivr.net/npm/react-router@<%= versions['react-router'] %>/umd/react-router.min.js",
         "react-router-dom": "https://cdn.jsdelivr.net/npm/react-router-dom@<%= versions['react-router-dom'] %>/umd/react-router-dom.min.js",
-        "@alkem/front-root": "//poc.alkemics.com/alkem-front-root.js",
-        "@alkem/front-navbar": "//poc.alkemics.com/alkem-front-navbar.js",
-        "@alkem/front-product-catalog": "//poc.alkemics.com/alkem-front-product-catalog.js"
+        "@alkem/front-root": "//dev.alkemics.com/@alkem/front-root/<%= moduleVersion %>/alkem-front-root.js",
+        "@alkem/front-navbar": "//dev.alkemics.com/@alkem/front-navbar/1.0.0/alkem-front-navbar.js",
+        "@alkem/front-product-catalog": "//dev.alkemics.com/@alkem/front-product-catalog/1.0.0/alkem-front-product-catalog.js"
       }
     }
   </script>
@@ -30,15 +30,14 @@
     }
   </script>
   <% } %>
+  <script src="https://cdn.jsdelivr.net/npm/regenerator-runtime@<%= versions['regenerator-runtime'] %>/runtime.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/import-map-overrides@<%= versions['import-map-overrides'] %>/dist/import-map-overrides.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/systemjs@<%= versions.systemjs %>/dist/system.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/systemjs@<%= versions.systemjs %>/dist/extras/amd.min.js"></script>
 </head>
 <body>
   <div id="root"></div>
-  <script>
-    System.import('@alkem/front-root');
-  </script>
   <import-map-overrides-full show-when-local-storage="devtools" dev-libs></import-map-overrides-full>
+  <script src="//dev.alkemics.com/@alkem/front-root/<%= moduleVersion %>/bootstrap.js"></script>
 </body>
 </html>
