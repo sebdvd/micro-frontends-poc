@@ -15,6 +15,7 @@ module.exports = ({ port, isRoot, rootDirectoryLevel }) => (
   const {
     groups: { orgName, projectName },
   } = /@(?<orgName>.+)\/(?<projectName>.+)/.exec(moduleName);
+  const withLiveReload = !process.argv.includes('--no-live-reload');
   return {
     mode,
     context: path.resolve(process.cwd()),
@@ -76,6 +77,9 @@ module.exports = ({ port, isRoot, rootDirectoryLevel }) => (
     },
     devtool: 'source-map',
     devServer: {
+      hot: withLiveReload,
+      liveReload: withLiveReload,
+      injectClient: withLiveReload,
       port,
       compress: true,
       historyApiFallback: true,
@@ -84,32 +88,29 @@ module.exports = ({ port, isRoot, rootDirectoryLevel }) => (
         'Cache-Control': 'no-store',
       },
       firewall: false,
-      client: {
-        host: 'localhost',
-      },
-      proxy: {
-        '/': {
-          target: 'http://dev.alkemics.com/',
-          pathRewrite: {},
-          secure: false,
-          onProxyRes: (proxyRes) => {
-            const blacklist = [
-              'content-security-policy',
-              'feature-policy',
-              'referrer-policy',
-              'strict-transport-security',
-              'x-content-type-options',
-              'x-frame-options',
-              'x-xss-protection',
-            ];
-            for (const header of Object.keys(proxyRes.headers)) {
-              if (blacklist.includes(header.toLowerCase())) {
-                delete proxyRes.headers[header];
-              }
-            }
+      proxy: isRoot
+        ? {}
+        : {
+            '/': {
+              target: 'http://dev.alkemics.com/',
+              onProxyRes: (proxyRes) => {
+                const blacklist = [
+                  'content-security-policy',
+                  'feature-policy',
+                  'referrer-policy',
+                  'strict-transport-security',
+                  'x-content-type-options',
+                  'x-frame-options',
+                  'x-xss-protection',
+                ];
+                for (const header of Object.keys(proxyRes.headers)) {
+                  if (blacklist.includes(header.toLowerCase())) {
+                    delete proxyRes.headers[header];
+                  }
+                }
+              },
+            },
           },
-        },
-      },
     },
     externals: [
       'react',

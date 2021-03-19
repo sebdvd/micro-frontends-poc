@@ -23,9 +23,7 @@
   <script type="systemjs-importmap">
     {
       "imports": {
-        "@alkem/front-root": "//localhost:<%= port %>/alkem-front-root.js",
-        "@alkem/front-navbar": "//localhost:9001/alkem-front-navbar.js",
-        "@alkem/front-product-catalog": "//localhost:9002/alkem-front-product-catalog.js"
+        "@alkem/front-root": "//localhost:<%= port %>/alkem-front-root.js"
       }
     }
   </script>
@@ -38,6 +36,10 @@
 <body>
   <div id="root"></div>
   <import-map-overrides-full show-when-local-storage="devtools" dev-libs></import-map-overrides-full>
+  <% if (isLocal) { %>
+  <script src="//localhost:<%= port %>/bootstrap.js"></script>
+  <% } else { %>
   <script src="//dev.alkemics.com/@alkem/front-root/<%= moduleVersion %>/bootstrap.js"></script>
+  <% } %>
 </body>
 </html>
