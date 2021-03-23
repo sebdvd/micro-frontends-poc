@@ -1,7 +1,7 @@
-import { useStyles } from '@alkem/front-project-config/react-utils';
+import { CssLoader } from '@alkem/front-project-config/react-utils';
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import styles from './styles.css';
+import './styles.css';
 
 function NavbarLink({ to, children }) {
   return (
@@ -17,12 +17,11 @@ function NavbarLink({ to, children }) {
 }
 
 function Navbar() {
-  useStyles(styles);
   return (
-    <nav className="Navbar">
+    <CssLoader elemType="nav">
       <NavbarLink to="/">Home</NavbarLink>
       <NavbarLink to="/products">Catalog</NavbarLink>
-    </nav>
+    </CssLoader>
   );
 }
 

@@ -10,6 +10,9 @@ function MfeComponentLoader({ moduleName }) {
     System.import(moduleName)
       .then((module) => {
         if (isMounted) {
+          if (typeof module.bootstrap === 'function') {
+            module.bootstrap();
+          }
           setModuleComponent(() => module.component());
         }
       })

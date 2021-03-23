@@ -1,11 +1,9 @@
-import { useStyles } from '@alkem/front-project-config/react-utils';
+import { MfeComponent } from '@alkem/front-project-config/mfe-component';
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import { MfeComponent } from './mfe-component';
-import styles from './styles.css';
+import './styles.css';
 
 export function AppRouter() {
-  useStyles(styles);
   return (
     <Router>
       <>
@@ -15,7 +13,7 @@ export function AppRouter() {
             <MfeComponent moduleName="@alkem/front-product-catalog" />
           </Route>
           <Route path="/">
-            <h1 className="Home">Hello! this is the home page.</h1>
+            <h1 className="FrontRoot">Hello! this is the home page.</h1>
           </Route>
         </Switch>
       </>

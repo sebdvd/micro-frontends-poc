@@ -1,16 +1,7 @@
-/* eslint-disable no-console, react/prop-types, react-hooks/exhaustive-deps */
 import React from 'react';
 import { runSaga, stdChannel } from 'redux-saga';
 import { cancel, fork, take } from 'redux-saga/effects';
-
-export function useStyles(styles) {
-  React.useLayoutEffect(() => {
-    styles.use();
-    return () => {
-      styles.unuse();
-    };
-  }, []);
-}
+import { loadCSS } from './css';
 
 export function createAppContext({ initialState, reducer, saga = () => {} }) {
   let context;
@@ -86,4 +77,26 @@ export function createAppContext({ initialState, reducer, saga = () => {} }) {
   }
 
   return { AppProvider, useSelector, useDispatch };
+}
+
+export function CssLoader({
+  elemType = 'div',
+  elemProps = {},
+  children,
+  isFragment = false,
+}) {
+  React.useLayoutEffect(() => {
+    loadCSS();
+  }, []);
+  if (isFragment) {
+    return <>{children}</>;
+  }
+  return React.createElement(
+    elemType,
+    {
+      ...elemProps,
+      className: `${CSS_CLASSNAME} ${elemProps.className || ''}`,
+    },
+    ...React.Children.toArray(children)
+  );
 }

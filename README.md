@@ -3,5 +3,7 @@
 Intialize and start main server:
 
 ```shell
-./start.sh
+make install
+cd server
+npm start
 ```
